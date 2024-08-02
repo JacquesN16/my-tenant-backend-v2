@@ -28,6 +28,18 @@ func InitDB() error {
 	return nil
 }
 
+func GetAllTenants() ([]Tenant, error) {
+	var tenants []Tenant
+
+	db, err := gorm.Open(sqlite.Open("tenant.db"), &gorm.Config{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	db.Find(&tenants)
+
+	return tenants, err
+}
+
 func CreateTenant(firstName string, lastName string, email string, startDate int64, rent float64, charge float64, endDate *int64) (Tenant, error){
 	var newTenant = Tenant{
 		FirstName: firstName,

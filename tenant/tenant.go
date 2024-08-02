@@ -6,7 +6,24 @@ import (
 )
 
 func GetAllTenants(c *fiber.Ctx) error {
-	return c.SendString("All tenants")
+
+	res, err := db.GetAllTenants()
+	if err != nil {
+		c.Status(400).JSON(&fiber.Map{
+			"success": false,
+			"msg": err,
+			"data":nil,
+		})
+		return err
+	}
+
+	c.Status(200).JSON(&fiber.Map{
+		"success": true,
+		"msg": "Tenants fetched successfully",
+		"data": res,
+	})
+
+	return nil
 }
 
 func InsertTenant(c *fiber.Ctx) error {
