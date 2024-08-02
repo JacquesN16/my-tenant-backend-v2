@@ -1,7 +1,7 @@
 package tenant
 
 import (
-	"github.com/JacquesN16/my-tenant-backend-v2/db"
+	"my-tenant-backend-v2/db"
 	"github.com/gofiber/fiber/v2"
 )
 
