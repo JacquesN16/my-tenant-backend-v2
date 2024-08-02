@@ -3,17 +3,18 @@ package main
 import (
     "log"
     "github.com/gofiber/fiber/v2"
-    "my-tenant-backend-v2/tenant"
-    "my-tenant-backend-v2/db"
 )
-func status(c *fiber.Ctx){
-	 c.SendString("Server is up and running !")
+
+import "my-tenant-backend-v2/tenant"
+import "my-tenant-backend-v2/db"
+
+func status(c *fiber.Ctx) error{
+	return c.SendString("Server is up and running !")
 }
 func setupRoutes(app *fiber.App) {
-
-	// app.Get("/", status)
-	app.Get("api/tenants", tenant.getAllTenants)
-	app.Post("api/tenant", tenant.insertTenant)
+	app.Get("/", status)
+	app.Get("api/tenants", tenant.GetAllTenants)
+	app.Post("api/tenant", tenant.InsertTenant)
 }
 
 func main(){

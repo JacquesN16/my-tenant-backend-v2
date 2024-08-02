@@ -28,7 +28,7 @@ func InitDB() error {
 	return nil
 }
 
-func CreateTenant(firstName string, lastName string, email string, startDate int64, rent float64, charge float64){
+func CreateTenant(firstName string, lastName string, email string, startDate int64, rent float64, charge float64, endDate *int64) (Tenant, error){
 	var newTenant = Tenant{
 		FirstName: firstName,
 		LastName: lastName,
@@ -36,7 +36,7 @@ func CreateTenant(firstName string, lastName string, email string, startDate int
 		StartDate: startDate,
 		Rent: rent,
 		Charge: charge,
-		EndDate: nil,
+		EndDate: endDate,
 	}
 
 	db, err := gorm.Open(sqlite.Open("tenant.db"), &gorm.Config{})
@@ -44,5 +44,15 @@ func CreateTenant(firstName string, lastName string, email string, startDate int
 		log.Fatal(err)
 	}
 
-	db.Create(newTenant)
+	db.Create(&Tenant{
+		FirstName: firstName,
+		LastName: lastName,
+		Email: email,
+		StartDate: startDate,
+		Rent: rent,
+		Charge: charge,
+		EndDate: endDate,
+	})
+
+	return newTenant, err
 }
