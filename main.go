@@ -3,6 +3,7 @@ package main
 import (
     "log"
     "github.com/gofiber/fiber/v2"
+    "github.com/gofiber/fiber/v2/middleware/cors"
 )
 
 import "my-tenant-backend-v2/tenant"
@@ -21,6 +22,11 @@ func main(){
     // Init
     app := fiber.New()
     dbErr := db.InitDB()
+
+    app.Use(cors.New(cors.Config{
+        AllowOrigins: "*",
+        AllowCredentials: false,
+    }))
 
     if dbErr != nil {
 		log.Fatal(dbErr)
