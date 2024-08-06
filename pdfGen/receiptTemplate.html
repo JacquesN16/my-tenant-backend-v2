@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="fr">
+    <body>
+        <main class="px-20 pt-10">
+            <div class="w-100 flex justify-center text-5xl">
+                <h1 class="text-3xl font-bold">
+                    Quittance de loyer
+                    <span class="month">{{ .month }}</span>/<span class="year"
+                        >{{ .year }}</span
+                    >
+                </h1>
+            </div>
+
+            <div class="w-100 flex flex-col items-end my-10">
+                <p>
+                    <span class="lastName"> {{ .lastName }} </span>
+                    <span class="firstName"> {{ .firstName }} </span>
+                </p>
+                <p>8 rue d'Aurion, 93110 Rosny-sous-Bois</p>
+                <p class="my-5">Fait à Rosny-sous-Bois, {{ .today }}</p>
+            </div>
+
+            <div class="my-10">
+                <p>
+                    Je soussigné, NGUYEN, propriétaire du logement susmentionné,
+                    déclare avoir reçu de {{ .title }} {{ .lastName }} {{
+                    .firstName }}, la somme de {{ .totalRent }} euros ({{
+                    .totalRentInText }}) au titre du paiement du loyer et des
+                    charges pour la période de location du {{ .startPeriod }} au
+                    {{ .endPeriod }}, et lui en donne quittance, sous réserve de
+                    tous mes droits.
+                </p>
+            </div>
+
+            <table class="table my-10">
+                <tr>
+                    <th>Description</th>
+                    <th>Montant</th>
+                </tr>
+                <tr>
+                    <td>Loyer</td>
+                    <td class="text-right">
+                        <span class="rent">{{ .rent }}</span> €
+                    </td>
+                </tr>
+                <tr>
+                    <td>Provision pour charges</td>
+                    <td class="text-right">
+                        <span class="charge">{{ .charge }}</span> €
+                    </td>
+                </tr>
+                <tr>
+                    <th>Total</th>
+                    <th class="text-right">
+                        <span class="totalRent">{{ .totalRent }}</span> €
+                    </th>
+                </tr>
+                <tr class="pb-10">
+                    <td>Date du paiement</td>
+                    <td>
+                        <span class="dateOfPayment">{{ .dateOfPayment }}</span>
+                    </td>
+                </tr>
+            </table>
+            <div class="w-full flex justify-center mt-10">
+                ------------------
+            </div>
+        </main>
+    </body>
+</html>
