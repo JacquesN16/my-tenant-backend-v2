@@ -33,6 +33,22 @@ func setupRoutes(app *fiber.App) {
 		})
 	})
 
+	app.Get("/tenant/:id", func (c *fiber.Ctx) error {
+		tenantViewData, err := tenant.GetTenantById(c)
+		if err != nil {
+			return c.SendStatus(http.StatusInternalServerError)
+		}
+
+		return c.Render("tenant", fiber.Map{
+			"Name": tenantViewData.Name,
+			"StartDate": tenantViewData.StartDate,
+			"Rent": tenantViewData.Rent,
+			"Charge": tenantViewData.Charge,
+			"Total": tenantViewData.Total,
+			"Months": tenantViewData.Months,
+		})
+	})
+
 	app.Get("api/tenants", tenant.GetAllTenants)
 	app.Post("api/tenant", tenant.InsertTenant)
 }

@@ -8,6 +8,7 @@ import (
 
 type Tenant struct {
 	gorm.Model
+	ID        int64   `json:"id"`
 	FirstName string  `json:"firstName"`
 	LastName  string  `json:"lastName"`
 	Email     string  `json:"email"`
@@ -38,6 +39,18 @@ func GetAllTenants() ([]Tenant, error) {
 	db.Find(&tenants)
 
 	return tenants, err
+}
+
+func GetTenant(id int64) (Tenant, error) {
+	var tenant Tenant
+
+	db, err := gorm.Open(sqlite.Open("tenant.db"), &gorm.Config{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	db.First(&tenant, id)
+
+	return tenant, err
 }
 
 func CreateTenant(firstName string, lastName string, email string, startDate int64, rent float64, charge float64, endDate *int64) (Tenant, error){

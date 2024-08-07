@@ -1,4 +1,4 @@
-<table class="table">
+<table class="table w-75 mx-auto">
     <thead>
         <tr>
             <th>Name</th>
@@ -13,18 +13,15 @@
     <tbody>
         {{range .Tenants}}
         <tr>
-            <td>{{.FirstName}}</td>
+            <td>{{.Name}}</td>
             <td>{{.StartDate}}</td>
             <td>{{.Rent}}</td>
             <td>{{.Charge}}</td>
-            <td>{{.Rent}}</td>
-            <td>{{.StartDate}}</td>
+            <td>{{.Total}}</td>
+            <td>{{.Months}}</td>
             <td>
-                <button class="btn btn-primary" hx-get="/tenants/{{.ID}}">
-                    Edit
-                </button>
-                <button class="btn btn-danger" hx-delete="/tenants/{{.ID}}">
-                    Delete
+                <button class="btn btn-primary">
+                    <a href="/tenant/{{.ID}}">View</a>
                 </button>
             </td>
         </tr>
