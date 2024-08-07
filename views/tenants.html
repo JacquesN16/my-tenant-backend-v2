@@ -7,17 +7,26 @@
             <th>Charge</th>
             <th>Total</th>
             <th>Months</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
         {{range .Tenants}}
         <tr>
-            <td>{{.Name}}</td>
+            <td>{{.FirstName}}</td>
             <td>{{.StartDate}}</td>
             <td>{{.Rent}}</td>
             <td>{{.Charge}}</td>
-            <td>{{.Total}}</td>
-            <td>{{.Months}}</td>
+            <td>{{.Rent}}</td>
+            <td>{{.StartDate}}</td>
+            <td>
+                <button class="btn btn-primary" hx-get="/tenants/{{.ID}}">
+                    Edit
+                </button>
+                <button class="btn btn-danger" hx-delete="/tenants/{{.ID}}">
+                    Delete
+                </button>
+            </td>
         </tr>
         {{end}}
     </tbody>

@@ -2,9 +2,11 @@ package main
 
 import (
     "log"
+    "net/http"
     "github.com/gofiber/fiber/v2"
     "github.com/gofiber/fiber/v2/middleware/cors"
     "github.com/gofiber/template/html/v2"
+
 )
 
 import "my-tenant-backend-v2/tenant"
@@ -20,11 +22,17 @@ func setupRoutes(app *fiber.App) {
             "Title": "Hello, World!",
         })
     })
-	app.Get("tenants", func (c *fiber.Ctx) error {
+	app.Get("/tenants", func (c *fiber.Ctx) error {
+		tenants, err := tenant.GetTenants(c)
+		if err != nil {
+			return c.SendStatus(http.StatusInternalServerError)
+		}
+
 		return c.Render("tenants", fiber.Map{
-			"Title": "Tenants",
+			"Tenants": tenants,
 		})
 	})
+
 	app.Get("api/tenants", tenant.GetAllTenants)
 	app.Post("api/tenant", tenant.InsertTenant)
 }

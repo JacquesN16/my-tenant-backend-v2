@@ -5,6 +5,21 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+
+func GetTenants(c *fiber.Ctx) ([]db.Tenant, error) {
+        res, err := db.GetAllTenants()
+        if err != nil {
+	        c.Status(400).JSON(&fiber.Map{
+				"success": false,
+				"msg": err,
+				"data":nil,
+			})
+			return nil, err
+        }
+
+        return res, nil
+}
+
 func GetAllTenants(c *fiber.Ctx) error {
 
 	res, err := db.GetAllTenants()
