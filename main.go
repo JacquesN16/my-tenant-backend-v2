@@ -32,7 +32,10 @@ func main(){
 
     app := fiber.New(fiber.Config{
             Views: engine,
+            ViewsLayout: "layouts/main",
     })
+
+    app.Static("/","./views/public")
 
     app.Use(cors.New(cors.Config{
         AllowOrigins: "*",
