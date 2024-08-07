@@ -20,6 +20,11 @@ func setupRoutes(app *fiber.App) {
             "Title": "Hello, World!",
         })
     })
+	app.Get("tenants", func (c *fiber.Ctx) error {
+		return c.Render("tenants", fiber.Map{
+			"Title": "Tenants",
+		})
+	})
 	app.Get("api/tenants", tenant.GetAllTenants)
 	app.Post("api/tenant", tenant.InsertTenant)
 }

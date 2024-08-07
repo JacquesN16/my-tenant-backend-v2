@@ -1,0 +1,24 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Start date</th>
+            <th>Rent</th>
+            <th>Charge</th>
+            <th>Total</th>
+            <th>Months</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{range .Tenants}}
+        <tr>
+            <td>{{.Name}}</td>
+            <td>{{.StartDate}}</td>
+            <td>{{.Rent}}</td>
+            <td>{{.Charge}}</td>
+            <td>{{.Total}}</td>
+            <td>{{.Months}}</td>
+        </tr>
+        {{end}}
+    </tbody>
+</table>
