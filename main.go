@@ -35,7 +35,7 @@ func main(){
             ViewsLayout: "layouts/main",
     })
 
-    app.Static("/","./views/public")
+    app.Static("/","./public")
 
     app.Use(cors.New(cors.Config{
         AllowOrigins: "*",
