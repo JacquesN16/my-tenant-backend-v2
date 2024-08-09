@@ -29,6 +29,8 @@ type PDFData struct {
 
 func GeneratePDF(c *fiber.Ctx){
 	var data PDFData
+	id := c.Params("id")
+
 	err := json.Unmarshal(c.Body(), &data);
 	if err != nil {
 		c.Status(400).JSON(&fiber.Map{

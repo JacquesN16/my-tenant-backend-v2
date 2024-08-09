@@ -50,7 +50,7 @@ func setupRoutes(app *fiber.App) {
 		})
 	})
 
-	app.Get("/send-pdf", GeneratePDF)
+	app.Get("/send-pdf/:id", GeneratePDF)
 
 	app.Get("api/tenants", tenant.GetAllTenants)
 	app.Post("api/tenant", tenant.InsertTenant)
