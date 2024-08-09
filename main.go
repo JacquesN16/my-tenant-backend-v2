@@ -11,6 +11,7 @@ import (
 
 import "my-tenant-backend-v2/tenant"
 import "my-tenant-backend-v2/db"
+import "my-tenant-backend-v2/pdf"
 
 func status(c *fiber.Ctx) error{
 	return c.SendString("Server is up and running !")
@@ -48,6 +49,8 @@ func setupRoutes(app *fiber.App) {
 			"Months": tenantViewData.Months,
 		})
 	})
+
+	app.Get("/send-pdf", GeneratePDF)
 
 	app.Get("api/tenants", tenant.GetAllTenants)
 	app.Post("api/tenant", tenant.InsertTenant)
