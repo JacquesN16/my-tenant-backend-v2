@@ -1,6 +1,7 @@
 package pdf
 
 import (
+	"time"
 	"bytes"
 	"fmt"
 	"encoding/json"
@@ -30,6 +31,18 @@ type PDFData struct {
 func GeneratePDF(c *fiber.Ctx){
 	var data PDFData
 	id := c.Params("id")
+	idInt, err := strconv.ParseInt(id, 0, 64)
+	if err != nil {
+		c.Status(400).JSON(&fiber.Map{
+			"success": false,
+			"msg": err,
+			"data":nil,
+		})
+		return
+	}
+
+	tenant, err := db.GetTenant(idInt)
+
 
 	err := json.Unmarshal(c.Body(), &data);
 	if err != nil {
@@ -84,7 +97,13 @@ func GeneratePDF(c *fiber.Ctx){
 		return
 	}
 
-	if err := sendEmail(pdf, "recipient@example", "Receipt");
+
+
+	thisMonth := time.Now().Month()
+
+	emailTitle := fmt.Sprintf("Receipt for %s %d", thisMonth.String(), time.Now().Year())
+
+	if err := sendEmail(pdf, tenant.email, "Receipt");
 	err != nil {
 		c.Status(400).JSON(&fiber.Map{
 			"success": false,
