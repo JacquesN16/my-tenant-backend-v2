@@ -7,7 +7,11 @@ import (
 	"encoding/json"
 	"html/template"
 	"net/smtp"
+	"github.com/gofiber/fiber/v2"
+	"strconv"
 	"github.com/SebastiaanKlippert/go-wkhtmltopdf"
+	"my-tenant-backend-v2/db"
+
 )
 
 type PDFData struct {
@@ -42,6 +46,14 @@ func GeneratePDF(c *fiber.Ctx){
 	}
 
 	tenant, err := db.GetTenant(idInt)
+	if err != nil {
+		c.Status(400).JSON(&fiber.Map{
+			"success": false,
+			"msg": err,
+			"data":nil,
+		})
+		return
+	}
 
 
 	err := json.Unmarshal(c.Body(), &data);
@@ -87,7 +99,7 @@ func GeneratePDF(c *fiber.Ctx){
 	}
 
 	pdfg.AddPage(wkhtmltopdf.NewPageReader(&buffer))
-	pdf, err := pdfg.GeneratePDF()
+	err := pdfg.Create()
 	if err != nil {
 		c.Status(400).JSON(&fiber.Map{
 			"success": false,
@@ -103,7 +115,7 @@ func GeneratePDF(c *fiber.Ctx){
 
 	emailTitle := fmt.Sprintf("Receipt for %s %d", thisMonth.String(), time.Now().Year())
 
-	if err := sendEmail(pdf, tenant.email, "Receipt");
+	if err := sendEmail(pdf, tenant.Email, emailTitle);
 	err != nil {
 		c.Status(400).JSON(&fiber.Map{
 			"success": false,
