@@ -1,17 +1,17 @@
 package main
 
 import (
+	"fmt"
     "log"
     "net/http"
     "github.com/gofiber/fiber/v2"
     "github.com/gofiber/fiber/v2/middleware/cors"
     "github.com/gofiber/template/html/v2"
+    "my-tenant-backend-v2/tenant"
+    "my-tenant-backend-v2/db"
 
 )
 
-import "my-tenant-backend-v2/tenant"
-import "my-tenant-backend-v2/db"
-import "my-tenant-backend-v2/pdf"
 
 func status(c *fiber.Ctx) error{
 	return c.SendString("Server is up and running !")
@@ -50,7 +50,10 @@ func setupRoutes(app *fiber.App) {
 		})
 	})
 
-	app.Get("/send-pdf/:id", GeneratePDF)
+	app.Get("/send-pdf/:id", func (c *fiber.Ctx)=>{
+		id := c.Params("id")
+		println("ID: ", id)
+	})
 
 	app.Get("api/tenants", tenant.GetAllTenants)
 	app.Post("api/tenant", tenant.InsertTenant)
