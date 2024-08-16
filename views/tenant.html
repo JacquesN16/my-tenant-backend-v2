@@ -10,7 +10,11 @@
         </p>
     </div>
     <div class="card-footer">
-        <button class="btn btn-success" hx-get="/send-pdf/{{.ID}}">
+        <button
+            class="btn btn-success"
+            hx-get="/send-pdf/{{.ID}}"
+            hx-swap="outerHTML"
+        >
             Send email
         </button>
     </div>

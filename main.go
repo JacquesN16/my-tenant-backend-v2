@@ -53,7 +53,7 @@ func setupRoutes(app *fiber.App) {
 	app.Get("/send-pdf/:id", func (c *fiber.Ctx) error{
 		id := c.Params("id")
 		println("ID: ", id)
-		return nil
+		return c.Render("succes", fiber.Map{})
 	})
 
 	app.Get("api/tenants", tenant.GetAllTenants)
