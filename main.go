@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
     "log"
     "net/http"
     "github.com/gofiber/fiber/v2"
@@ -41,6 +40,7 @@ func setupRoutes(app *fiber.App) {
 		}
 
 		return c.Render("tenant", fiber.Map{
+			"ID": tenantViewData.ID,
 			"Name": tenantViewData.Name,
 			"StartDate": tenantViewData.StartDate,
 			"Rent": tenantViewData.Rent,
@@ -50,9 +50,10 @@ func setupRoutes(app *fiber.App) {
 		})
 	})
 
-	app.Get("/send-pdf/:id", func (c *fiber.Ctx)=>{
+	app.Get("/send-pdf/:id", func (c *fiber.Ctx) error{
 		id := c.Params("id")
 		println("ID: ", id)
+		return nil
 	})
 
 	app.Get("api/tenants", tenant.GetAllTenants)
