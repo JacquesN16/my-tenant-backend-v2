@@ -1,4 +1,4 @@
-{{template "partials/header" .}}
+{{template "header"}}
 <table class="table w-75 mx-auto">
     <thead>
         <tr>
@@ -22,7 +22,13 @@
             <td>{{.Months}}</td>
             <td>
                 <button class="btn btn-primary">
-                    <a href="/tenant/{{.ID}}">View</a>
+                    <a
+                        href="/tenant/{{.ID}}"
+                        class="text-decoration-none text-light"
+                        s
+                    >
+                        View
+                    </a>
                 </button>
             </td>
         </tr>
