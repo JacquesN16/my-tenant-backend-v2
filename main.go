@@ -8,7 +8,6 @@ import (
     "github.com/gofiber/template/html/v2"
     "my-tenant-backend-v2/tenant"
     "my-tenant-backend-v2/db"
-
 )
 
 

@@ -18,9 +18,6 @@ type Tenant struct {
 	EndDate   *int64   `json:"endDate"`
 }
 
-struct TenantViewData interface {
-
-}
 
 func InitDB() error {
 	db, err := gorm.Open(sqlite.Open("tenant.db"), &gorm.Config{})
